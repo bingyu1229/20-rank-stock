@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 20 Stocks</title>
+</head>
+<body>
+    <h1>Top 20 Stocks by Net Inflow</h1>
+    <form method="post">
+        <button type="submit">Fetch Latest Data</button>
+    </form>
+    {% if stocks %}
+    <p>Data fetched at: {{ current_time }}</p>
+    <table border="1">
+        <tr>
+            <th>股票代码</th>
+            <th>股票名称</th>
+            <th>当前净流入 (万元)</th>
+        </tr>
+        {% for stock in stocks %}
+        <tr>
+            <td>{{ stock['stock_code'] }}</td>
+            <td>{{ stock['short_name'] }}</td>
+            <td>{{ stock['final_value'] | round(2) }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
