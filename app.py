@@ -5,6 +5,9 @@ from datetime import datetime
 import adata
 import os
 from waitress import serve
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -39,4 +42,5 @@ def index():
     return render_template('index.html', stocks=None, current_time=None)
 
 if __name__ == '__main__':
-    serve(app, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    port = int(os.environ.get('PORT', 5000))
+    serve(app, host='0.0.0.0', port=port)
