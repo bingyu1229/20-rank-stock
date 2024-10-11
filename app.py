@@ -5,9 +5,6 @@ from datetime import datetime
 import adata
 import os
 from waitress import serve
-from dotenv import load_dotenv
-
-load_dotenv()
 
 app = Flask(__name__)
 
