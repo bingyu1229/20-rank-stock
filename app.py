@@ -5,6 +5,7 @@ from datetime import datetime
 import adata
 import os
 from waitress import serve
+import pytz
 
 app = Flask(__name__)
 
@@ -27,7 +28,8 @@ def fetch_latest_data():
 
     results_df = pd.DataFrame(results, columns=['stock_code', 'short_name', 'final_value'])
     top_30_stocks_df = results_df.sort_values(by='final_value', ascending=False).head(30)
-    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    china_tz = pytz.timezone('Asia/Shanghai')
+    current_time = datetime.now(china_tz).strftime('%Y-%m-%d %H:%M:%S')
     return top_30_stocks_df, current_time
 
 @app.route('/', methods=['GET', 'POST'])
