@@ -25,15 +25,15 @@ def fetch_latest_data():
                 print(f"Error processing stock {row['stock_code']}: {e}")
 
     results_df = pd.DataFrame(results, columns=['stock_code', 'short_name', 'final_value'])
-    top_20_stocks_df = results_df.sort_values(by='final_value', ascending=False).head(20)
+    top_30_stocks_df = results_df.sort_values(by='final_value', ascending=False).head(30)
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    return top_20_stocks_df, current_time
+    return top_30_stocks_df, current_time
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        top_20_stocks_df, current_time = fetch_latest_data()
-        stocks = top_20_stocks_df.to_dict(orient='records')
+        top_30_stocks_df, current_time = fetch_latest_data()
+        stocks = top_30_stocks_df.to_dict(orient='records')
         return render_template('index.html', stocks=stocks, current_time=current_time)
     return render_template('index.html', stocks=None, current_time=None)
 
